@@ -1,15 +1,3 @@
-fn add(x:i32,y:i32) -> i32 {
-    x + y
-}
-fn sub(x:i32,y:i32) -> i32 {
-    x - y
-}
-fn multi(x:i32,y:i32) -> i32 {
-    x * y
-}
-fn divi(x:i32,y:i32) -> i32 {
-    x / y
-}
 fn eval(formula:&str) -> i32 {
     let mut tokens = formula.split_whitespace().rev().collect::<Vec<_>>();
     let res =eval_inner(&mut tokens);
@@ -26,10 +14,10 @@ fn eval_inner(tokens:&mut Vec<&str>) -> i32 {
             let x = stack.pop().expect("invalid syntax");
 
             let fnc = match token {
-                "+" => add,
-                "-" => sub,
-                "*" => multi,
-                "/" => divi,
+                "+" => |x,y|x+y,
+                "-" => |x,y|x-y,
+                "*" => |x,y|x*y,
+                "/" => |x,y|x/y,
                 _ => panic!("invalid token"),
             };
 
